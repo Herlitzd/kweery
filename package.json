@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Devon Herlitz",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^23.3.10",
     "jest": "^23.6.0",
