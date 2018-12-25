@@ -7,16 +7,8 @@ export abstract class Base {
   abstract apply(env: Env): any;
 }
 export class Prop extends Base {
-  // rootSymbol: Symbol;
-  // next: Symbol | Prop;
   constructor(public rootSymbol: string, public next: string | Prop) {
     super();
-    // this.rootSymbol = Symbol.for(root);
-    // if (n instanceof Prop) {
-    //   this.next = n;
-    // } else {
-    //   this.next = Symbol.for(n);
-    // }
   }
   apply(env: Env) {
     if (this.next instanceof Prop) {
