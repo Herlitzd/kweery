@@ -14,4 +14,9 @@ export class Kweery {
     let ast = translateToAst(parsed);
     return ast;
   }
+
+  public exec<T>(query: string, values: T[]) {
+    let evaluator = this.parse(query);
+    return values.filter(row => evaluator.apply(row));
+  }
 }

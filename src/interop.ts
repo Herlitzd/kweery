@@ -4,28 +4,41 @@ import { LessThanThanOperator, EqualOperator, GreaterThanThanOperator } from "./
 import { AndOperator, OrOperator } from "./forms/logical";
 
 
+function isCstNode(cst: CstElement): cst is CstNode {
+  return !!cst['name'];
+}
+function isIToken(cst: CstElement): cst is IToken {
+  return !!cst['image'];
+}
 
-
-export function translateToAst(tree: CstNode): Base {
+export function translateToAst(tree: CstElement | CstElement[]): Base {
+  // chevrotain likes to return arrays with single elements
+  if (Array.isArray(tree)) return translateToAst(tree[0]);
+  // At the moment all IToken elements are handled directly, so we can
+  // help the compiler and discriminate the type here.
+  if (!isCstNode(tree)) throw "Unexpected top level Token";
   switch (tree.name) {
     case 'statement':
       if (tree.children.booleanOperator) {
-        return getBooleanOperator(<CstNode>tree.children.booleanOperator[0],
-          translateToAst(<CstNode>tree.children.expression[0]),
-          translateToAst(<CstNode>tree.children.statement[0]));
+        // Handle greedy parser case with Boolean Op
+        return getBooleanOperator(tree.children.booleanOperator[0],
+          translateToAst(tree.children.expression),
+          translateToAst(tree.children.statement));
       } else {
-        return translateToAst(<CstNode>tree.children.expression[0]);
+        // Terminal case
+        return translateToAst(tree.children.expression);
       }
     case 'expression':
-      return getComparator(<CstNode>tree.children.binaryOperator[0],
-        translateToAst(<CstNode>tree.children.lhs[0]),
-        translateToAst(<CstNode>tree.children.rhs[0]));
+      return getComparator(tree.children.binaryOperator[0],
+        translateToAst(tree.children.lhs),
+        translateToAst(tree.children.rhs));
     case 'accessorExpression':
       return getProp(tree.children.Identifier)
     case 'constExpression':
       if (tree.children.Number) {
         return new Const(parseFloat((<IToken>tree.children.Number[0]).image));
       } else {
+        // Remove the single quotes
         return new Const((<IToken>tree.children.QuotedIdentifier[0]).image.replace(/\'/g, ''));
       }
     default:
@@ -33,22 +46,26 @@ export function translateToAst(tree: CstNode): Base {
       throw `Unexpected CST Node. ${tree.name}`;
   }
 }
-function getComparator(operator: CstNode, left: Base, right: Base): Base {
-  if (operator.children.GreaterThan) {
+function getComparator(comparator: CstElement, left: Base, right: Base): Base {
+  if (!isCstNode(comparator)) throw "Illegal Comparator form";
+  if (comparator.children.GreaterThan) {
     return new GreaterThanThanOperator(left, right);
-  } else if (operator.children.LessThan) {
+  } else if (comparator.children.LessThan) {
     return new LessThanThanOperator(left, right);
-  } else if (operator.children.Equals) {
+  } else if (comparator.children.Equals) {
     return new EqualOperator(left, right);
   }
 }
 function getProp(fields: CstElement[]) {
-  if (fields.length == 1) {
-    return (<IToken>fields.shift()).image;
+  let top = fields.shift();
+  if (!isIToken(top)) throw "Illegal Property form";
+  if (fields.length == 0) {
+    return new Prop(top.image, null);
   }
-  return new Prop((<IToken>fields.shift()).image, getProp(fields));
+  return new Prop(top.image, getProp(fields));
 }
-function getBooleanOperator(operator: CstNode, left: Base, right: Base): Base {
+function getBooleanOperator(operator: CstElement, left: Base, right: Base): Base {
+  if (!isCstNode(operator)) throw "Illegal Operator Boolean form";
   if (operator.children.AND) {
     return new AndOperator(left, right);
   } else {

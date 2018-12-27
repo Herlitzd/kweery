@@ -8,7 +8,9 @@
     ],
     "target": "es2017",
     "paths": {
-      "chevrotain": ["node_modules/chevrotain/lib/chevrotain"] // This mapping is relative to "baseUrl"
+      "chevrotain": [
+        "node_modules/chevrotain/lib/chevrotain"
+      ]
     }
   },
   "exclude": [

@@ -1,4 +1,4 @@
-export type Env = Map<String, any>;
+export type Env = { [key: string]: any };//Map<String, any>;
 export type Comparable = Number | String;
 
 export interface Base {
@@ -8,10 +8,13 @@ export class Prop implements Base {
   constructor(public rootSymbol: string, public next: string | Prop) {
   }
   apply(env: Env) {
-    if (this.next instanceof Prop) {
-      return this.next.apply(env.get(this.rootSymbol));
+    // This feels wrong, revisit
+    if (this.next == null) {
+      return env[this.rootSymbol];
+    } else if (this.next instanceof Prop) {
+      return this.next.apply(env[this.rootSymbol] || {});
     } else {
-      return env.get(this.rootSymbol).get(this.next);
+      return env[this.rootSymbol][this.next] || null;
     }
   }
 }

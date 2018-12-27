@@ -9,7 +9,9 @@
   "author": "Devon Herlitz",
   "license": "MIT",
   "devDependencies": {
+    "@types/faker": "^4.1.4",
     "@types/jest": "^23.3.10",
+    "faker": "^4.1.0",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",
     "typescript": "^3.2.2"
