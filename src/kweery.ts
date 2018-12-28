@@ -1,5 +1,5 @@
 import { KweeryLexer } from "./parsing/lexer";
-import { translateToAst } from "./interop";
+import { translateToAst } from "./parsing/interop";
 import { KweeryParser } from "./parsing/parser";
 import { Env } from "./forms/forms";
 

@@ -3,7 +3,7 @@
 # Kweery
 A framework agnostic query language for the web.
 
-## Examples
+## Examples and Notes
 The language follows the basic form of what you would expect in a SQL where clause:
 
 ```sql
@@ -12,14 +12,16 @@ firstName = 'Sam' or age >= 15
 
 It should be noted that nested identifiers can be used as well. Such as:
 ```sql
-t.firstName = 'Sam' or t.age >= 15 and t.preferences.favoriteColor = 'Red'
+t.firstName = 'Sam' or t.age >= 15.5 and t.preferences.favoriteColor = 'Red'
 ```
+
+Note that strings must be denoted with single quotes. And that all numbers are treated as floats, whether they are integers or not.
 
 At the moment the following Binary Operators are supported.
 
-||||||||
-|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| **Operators** | < | > | >= | <= | = | != |
+|||||||
+|:--:|:--:|:--:|:--:|:--:|:--:|
+| < | > | >= | <= | = | != |
 
 For setwise operations, `AND` and `OR` are supported. As shown above, keywords/operators are not case sensitive, identifiers used to field access are.
 

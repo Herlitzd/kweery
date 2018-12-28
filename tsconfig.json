@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "outDir": "./dist",
     "module": "es6",
+    "declaration": true,
     "lib": [
       "es2017",
       "dom"
@@ -14,6 +16,8 @@
     }
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    "tests"
   ]
 }
