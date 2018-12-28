@@ -17,14 +17,9 @@ t.firstName = 'Sam' or t.age >= 15 and t.preferences.favoriteColor = 'Red'
 
 At the moment the following Binary Operators are supported.
 
-| Operators |
-|:---------:|
-| <         |
-| >         |
-| >=        |
-| <=        |
-| =         |
-| !=        |
+||||||||
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| **Operators** | < | > | >= | <= | = | != |
 
 For setwise operations, `AND` and `OR` are supported. As shown above, keywords/operators are not case sensitive, identifiers used to field access are.
 
