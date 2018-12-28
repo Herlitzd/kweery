@@ -10,22 +10,22 @@ export class NotEqualOperator extends ComparatorOperator {
     return (l: Comparable, r: Comparable) => l !== r;
   }
 }
-export class LessThanOrEqualThanOperator extends ComparatorOperator {
+export class LessThanOrEqualOperator extends ComparatorOperator {
   get rawOperator(): (l: Comparable, r: Comparable) => Boolean {
     return (l: Comparable, r: Comparable) => l <= r;
   }
 }
-export class LessThanThanOperator extends ComparatorOperator {
+export class LessThanOperator extends ComparatorOperator {
   get rawOperator(): (l: Comparable, r: Comparable) => Boolean {
     return (l: Comparable, r: Comparable) => l < r;
   }
 }
-export class GreaterThanOrEqualThanOperator extends ComparatorOperator {
+export class GreaterThanOrEqualOperator extends ComparatorOperator {
   get rawOperator(): (l: Comparable, r: Comparable) => Boolean {
     return (l: Comparable, r: Comparable) => l >= r;
   }
 }
-export class GreaterThanThanOperator extends ComparatorOperator {
+export class GreaterThanOperator extends ComparatorOperator {
   get rawOperator(): (l: Comparable, r: Comparable) => Boolean {
     return (l: Comparable, r: Comparable) => l > r;
   }

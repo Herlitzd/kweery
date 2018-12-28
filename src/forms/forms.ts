@@ -1,46 +1,51 @@
-
-
-export type Env = Map<String, any>;
+export type Env = { [key: string]: any };//Map<String, any>;
 export type Comparable = Number | String;
 
-export abstract class Base {
-  abstract apply(env: Env): any;
+export interface Base {
+  apply(env: Env): any;
 }
-export class Prop extends Base {
+export class Prop implements Base {
   constructor(public rootSymbol: string, public next: string | Prop) {
-    super();
   }
   apply(env: Env) {
-    if (this.next instanceof Prop) {
-      return this.next.apply(env.get(this.rootSymbol));
+    // This feels wrong, revisit
+    if (this.next == null) {
+      return env[this.rootSymbol];
+    } else if (this.next instanceof Prop) {
+      return this.next.apply(env[this.rootSymbol] || {});
     } else {
-      return env.get(this.rootSymbol).get(this.next);
+      return env[this.rootSymbol][this.next] || null;
     }
   }
 }
-export class Const extends Base {
+export class Const implements Base {
   constructor(public value: Comparable) {
-    super();
   }
   apply(_env: Env) {
     return this.value;
   }
 }
 
-export abstract class Operator extends Base {
-  constructor(public left: Base, public right: Base) {
-    super();
+export abstract class UnaryOperator implements Base {
+  constructor(public param: Base) {
   }
+  abstract apply(env: Env): Boolean;
 }
 
-export abstract class SetWiseOperator extends Operator {
+export abstract class BinaryOperator implements Base {
+  constructor(public left: Base, public right: Base) {
+  }
+  abstract apply(env: Env): Boolean;
+}
+
+export abstract class SetWiseOperator extends BinaryOperator {
   abstract get rawOperator(): (l: Boolean, r: Boolean) => Boolean;
   apply(env: Env): Boolean {
     return this.rawOperator(this.left.apply(env), this.right.apply(env));
   }
 }
 
-export abstract class ComparatorOperator extends Operator {
+export abstract class ComparatorOperator extends BinaryOperator {
   abstract get rawOperator(): (l: Comparable, r: Comparable) => Boolean;
   apply(env: Env): Boolean {
     return this.rawOperator(this.left.apply(env), this.right.apply(env));
