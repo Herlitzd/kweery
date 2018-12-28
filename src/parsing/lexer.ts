@@ -27,8 +27,11 @@ export class KweeryLexer {
     }),
     Period: createToken({ name: "Period", pattern: /\./ }),
     Number: createToken({ name: "Number", pattern: /\d+(\.\d*)?/ }),
+    GreaterThanOrEqual: createToken({ name: "GreaterThanOrEqual", pattern: />=/ }),
     GreaterThan: createToken({ name: "GreaterThan", pattern: />/ }),
     Equals: createToken({ name: "Equals", pattern: /=/ }),
+    NotEqual: createToken({ name: "NotEqual", pattern: /!=/ }),
+    LessThanOrEqual: createToken({ name: "LessThanOrEqual", pattern: /<=/ }),
     LessThan: createToken({ name: "LessThan", pattern: /</ }),
     Identifier: this.identifier
   };

@@ -1,11 +1,11 @@
 import { AndOperator, OrOperator } from "../src/forms/logical";
-import { EqualOperator, GreaterThanThanOperator, NotEqualOperator } from "../src/forms/comparators";
+import { EqualOperator, GreaterThanOperator, NotEqualOperator } from "../src/forms/comparators";
 import { Prop, Const } from "../src/forms/forms";
 
 let ast = new AndOperator(
   new EqualOperator(new Prop("t", "name"), new Const("Sam")),
   new OrOperator(
-    new GreaterThanThanOperator(new Prop("t", "age"), new Const(19)),
+    new GreaterThanOperator(new Prop("t", "age"), new Const(19)),
     new NotEqualOperator(new Prop("t", "id"), new Const(null))));
 
 test('no-match: name mismatch', () => {

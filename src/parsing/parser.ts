@@ -1,6 +1,4 @@
 import {
-  createToken,
-  Lexer,
   Parser,
   IToken,
   CstNode
@@ -36,8 +34,11 @@ export class KweeryParser extends Parser {
     $.RULE("binaryOperator", () => {
       $.OR([
         { ALT: () => $.CONSUME(tokens.GreaterThan) },
+        { ALT: () => $.CONSUME(tokens.GreaterThanOrEqual) },
         { ALT: () => $.CONSUME(tokens.Equals) },
-        { ALT: () => $.CONSUME(tokens.LessThan) }
+        { ALT: () => $.CONSUME(tokens.NotEqual) },
+        { ALT: () => $.CONSUME(tokens.LessThan) },
+        { ALT: () => $.CONSUME(tokens.LessThanOrEqual) },
       ])
     })
     $.RULE("accessorExpression", () => {
