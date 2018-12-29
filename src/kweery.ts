@@ -1,7 +1,7 @@
 import { KweeryLexer } from "./parsing/lexer";
 import { translateToAst } from "./parsing/interop";
 import { KweeryParser } from "./parsing/parser";
-import { Env } from "./forms/forms";
+import { Env, Base } from "./forms/forms";
 
 
 export class Kweery {
@@ -13,9 +13,9 @@ export class Kweery {
    * Get the AST for your query string. More than likely this is not what you want.
    * @param query string query
    */
-  public parse(query: string) {
-    let tokenized = this.lexer.tokenize(query);
-    let parsed = this.parser.parse(tokenized.tokens);
+  public async parse(query: string): Promise<Base> {
+    let tokens = await this.lexer.tokenize(query);
+    let parsed = await this.parser.parse(tokens);
     let ast = translateToAst(parsed);
     return ast;
   }
@@ -24,8 +24,9 @@ export class Kweery {
    * getPredicateFor some query string
    * @param query string query
    */
-  public getPredicateFor(query: string): (env: Env) => Boolean {
-    return this.parse(query).apply
+  public async getPredicateFor(query: string): Promise<(env: Env) => Boolean> {
+    let ast = await this.parse(query)
+    return ast.apply
   }
 
   /**
@@ -33,8 +34,8 @@ export class Kweery {
    * @param query string query
    * @param valuesToFilter array of values to operate over
    */
-  public exec<T>(query: string, valuesToFilter: T[]) {
-    let evaluator = this.parse(query);
-    return valuesToFilter.filter(row => evaluator.apply(row));
+  public async exec<T>(query: string, valuesToFilter: T[]) {
+    let ast = await this.parse(query);
+    return valuesToFilter.filter(row => ast.apply(row));
   }
 }
