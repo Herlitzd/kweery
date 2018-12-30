@@ -42,7 +42,14 @@ export class KweeryLexer {
 
   lexer: Lexer = new Lexer(Object.values(this.tokens));
 
-  public tokenize(input: string) {
-    return this.lexer.tokenize(input);
+  public tokenize(input: string): Promise<IToken[]> {
+    return new Promise((resolve, reject) => {
+      let result = this.lexer.tokenize(input);
+      if (result.errors.length) {
+        reject(result.errors);
+      } else {
+        resolve(result.tokens);
+      }
+    });
   }
 }

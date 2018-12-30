@@ -57,8 +57,15 @@ export class KweeryParser extends Parser {
     })
     this.performSelfAnalysis();
   }
-  parse(tokens: IToken[]): CstNode {
-    this.input = tokens;
-    return this['statement']();
+  parse(tokens: IToken[]): Promise<CstNode> {
+    return new Promise((resolve, reject) => {
+      this.input = tokens;
+      let result = this['statement']();
+      if (this.errors.length) {
+        reject(this.errors);
+      } else {
+        resolve(result);
+      }
+    });
   }
 }
