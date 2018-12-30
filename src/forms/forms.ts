@@ -5,7 +5,10 @@ export interface Base {
   apply(env: Env): any;
 }
 export class Prop implements Base {
-  constructor(public rootSymbol: string, public next: string | Prop) {
+  constructor(public rootSymbol: string, public next?: string | Prop) {
+    if (next === undefined) {
+      this.next = null;
+    }
   }
   apply(env: Env) {
     // This feels wrong, revisit

@@ -37,8 +37,13 @@ test("failed parse: missing expression rhs with valid following expression", asy
   await expectErr(k.parse("t.name = and t.age < 19"));
 });
 
+test("failed parse: invalid float", async () => {
+  expect.assertions(1);
+  await expectErr(k.parse("t.name = and t.age < 19f"));
+});
+
 test("failed parse: single tokens", async () => {
-  let tokens = ["and", "or", "=", "<", ">", "<=", ">=", "t.apple", "t", "t.", ".t"];
+  let tokens = ["", " ", "and", "or", "=", "<", ">", "<=", ">=", "t.apple", "t", "t.", ".t"];
   expect.assertions(tokens.length);
   await Promise.all(
     tokens.map(token => {
