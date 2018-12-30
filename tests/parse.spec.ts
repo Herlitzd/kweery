@@ -40,7 +40,7 @@ test("failed parse: missing expression rhs with valid following expression", asy
 test("failed parse: single tokens", async () => {
   let tokens = ["and", "or", "=", "<", ">", "<=", ">=", "t.apple", "t", "t.", ".t"];
   expect.assertions(tokens.length);
-  Promise.all(
+  await Promise.all(
     tokens.map(token => {
       expectErr(k.parse(token));
     }));
