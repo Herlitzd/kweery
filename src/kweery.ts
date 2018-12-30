@@ -25,7 +25,8 @@ export class Kweery {
    */
   public static async getPredicateFor(query: string): Promise<(env: Env) => Boolean> {
     let ast = await this.parse(query)
-    return ast.apply
+    // Must close around state
+    return (env: Env) => ast.apply(env);
   }
 
   /**
