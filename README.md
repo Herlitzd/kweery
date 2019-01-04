@@ -3,6 +3,10 @@
 # Kweery
 A framework agnostic query language for the web.
 
+# Demo
+[Live Demo](https://kweery.devonherlitz.solutions)
+
+
 ## Examples and Notes
 The language follows the basic form of what you would expect in a SQL where clause:
 
@@ -15,7 +19,12 @@ It should be noted that nested identifiers can be used as well. Such as:
 t.firstName = 'Sam' or t.age >= 15.5 and t.preferences.favoriteColor = 'Red'
 ```
 
-Note that strings must be denoted with single quotes. And that all numbers are treated as floats, whether they are integers or not. Also, parenthesis are not supported as of now, and will cause your your query to be invalid.
+And that parenthesis can be used in order to express precedence:
+```sql
+(t.firstName = 'Sam' or t.age >= 15.5) and t.preferences.favoriteColor = 'Red'
+```
+
+Note that strings must be denoted with single quotes. And that all numbers are treated as floats, whether they are integers or not.
 
 At the moment the following Binary Operators are supported.
 

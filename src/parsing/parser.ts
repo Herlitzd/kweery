@@ -11,12 +11,24 @@ export class KweeryParser extends Parser {
     const $: any = this;
     const tokens = lexer.tokens;
 
-    $.RULE("statement", () => {
+    $.RULE("genericStatement", () => {
       $.SUBRULE($.expression);
+    });
+    $.RULE('statement', () => {
+      $.OR([
+        { ALT: () => $.SUBRULE($.genericStatement) },
+        { ALT: () => $.SUBRULE($.parenStatement) }
+      ]);
       this.MANY(() => {
         $.SUBRULE($.booleanOperator);
         $.SUBRULE1($.statement);
-      })
+      });
+    });
+
+    $.RULE("parenStatement", () => {
+      $.CONSUME(tokens.LParen);
+      $.SUBRULE($.statement);
+      $.CONSUME(tokens.RParen);
     });
 
     $.RULE("expression", () => {
