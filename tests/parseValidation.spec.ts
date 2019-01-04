@@ -17,6 +17,37 @@ test("successful parse", async () => {
   expect(out.apply(env)).toBeFalsy();
 });
 
+test("success with parens", async () => {
+  let env = { t: { name: "Sam", age: 2, id: 5 } };
+  let out1 = await k.parse("t.id = 5 or (t.name = 'Sam' and t.age = 1)");
+  expect(out1.apply(env)).toBeTruthy();
+  let out2 = await k.parse("(t.id = 5 or t.name = 'Sam') and t.age = 1");
+  expect(out2.apply(env)).toBeFalsy();
+});
+
+test("arbitrary parens", async () => {
+  let env = { t: { name: "Sam", age: 2, id: 5 } };
+  let out1 = await k.parse("((t.name = 'Sam' and t.age = 2))");
+  expect(out1.apply(env)).toBeTruthy();
+  out1 = await k.parse("((t.id = 5) or (t.name = 'Sam' and t.age = 1))");
+  expect(out1.apply(env)).toBeTruthy();
+  out1 = await k.parse("((t.id = 5) or ((((t.name = 'Sam' and t.age = 1)))))");
+  expect(out1.apply(env)).toBeTruthy();
+});
+
+test("failed parse: bad parens", async () => {
+  expect.assertions(9);
+  await expectErr(k.parse("(t.name = 'Sam' and t.age > 19"));
+  await expectErr(k.parse("t.name = 'Sam' and t.age > 19)"));
+  await expectErr(k.parse("((t.name = 'Sam' and t.age > 19)"));
+  await expectErr(k.parse("(t.name = 'Sam' and t.age > 19))"));
+  await expectErr(k.parse("t.name = 'Sam'() and t.age > 19"));
+  await expectErr(k.parse("t.name = 'Sam') and t.age > 19"));
+  await expectErr(k.parse("t.name = 'Sam' (and t.age > 19"));
+  await expectErr(k.parse("t.name = 'Sam' and t.age (> 19)"));
+  await expectErr(k.parse("t.name = 'Sam' (and t.age > 19)"));
+});
+
 test("failed parse: missing operator", async () => {
   expect.assertions(1);
   await expectErr(k.parse("t.name = 'Sam' t.age > 19"));

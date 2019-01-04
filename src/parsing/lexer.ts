@@ -25,6 +25,10 @@ export class KweeryLexer {
       pattern: /OR/i,
       longer_alt: this.identifier
     }),
+
+    LParen: createToken({ name: "LParen", pattern: /\(/ }),
+    RParen: createToken({ name: "RParen", pattern: /\)/ }),
+    
     Period: createToken({ name: "Period", pattern: /\./ }),
     Number: createToken({ name: "Number", pattern: /\d+(\.\d*)?/ }),
     GreaterThanOrEqual: createToken({ name: "GreaterThanOrEqual", pattern: />=/ }),

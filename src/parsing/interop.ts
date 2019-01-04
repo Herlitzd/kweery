@@ -18,15 +18,19 @@ export function translateToAst(tree: CstElement | CstElement[]): Base {
   // help the compiler and discriminate the type here.
   if (!isCstNode(tree)) throw "Unexpected top level Token";
   switch (tree.name) {
+    // return translateToAst(tree.children.genericStatement || tree.children.parenStatement);
+    case 'parenStatement':
+      return translateToAst(tree.children.statement);
+    case 'genericStatement':
+      return translateToAst(tree.children.expression);
     case 'statement':
       if (tree.children.booleanOperator) {
         // Handle greedy parser case with Boolean Op
         return getBooleanOperator(tree.children.booleanOperator[0],
-          translateToAst(tree.children.expression),
+          translateToAst(tree.children.genericStatement || tree.children.parenStatement),
           translateToAst(tree.children.statement));
       } else {
-        // Terminal case
-        return translateToAst(tree.children.expression);
+        return translateToAst(tree.children.genericStatement || tree.children.parenStatement);
       }
     case 'expression':
       return getComparator(tree.children.binaryOperator[0],
