@@ -4,8 +4,7 @@
 A framework agnostic query language for the web.
 
 # Demo
-[Live Demo](kweery.devonherlitz.solutions)
-[Repo](kweery.devonherlitz.solutions)
+[Live Demo](https://kweery.devonherlitz.solutions)
 
 
 ## Examples and Notes
