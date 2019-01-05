@@ -6,6 +6,8 @@ A framework agnostic query language for the web.
 # Demo
 [Live Demo](https://kweery.devonherlitz.solutions)
 
+[Repo](https://github.com/Herlitzd/kweery-vue-poc)
+
 
 ## Examples and Notes
 The language follows the basic form of what you would expect in a SQL where clause:
