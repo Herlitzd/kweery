@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "Framework agnostic query language.",
   "main": "dist/kweery.js",
-  "types": "dist/kweery.ts",
+  "types": "dist/kweery.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Herlitzd/kweery.git"
@@ -11,7 +11,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "install": "npm run build"
+    "postinstall": "npm run build"
   },
   "author": "Devon Herlitz",
   "license": "MIT",
