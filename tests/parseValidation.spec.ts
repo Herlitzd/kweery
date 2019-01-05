@@ -86,3 +86,22 @@ test("failed parse: double quotes instead of single", async () => {
   expect.assertions(1);
   await expectErr(k.parse("t.name = \"Sam\" and t.age < 19"));
 });
+
+test("like operator for contains", async () => {
+  let env = { t: { name: "Sam", age: 2, id: 5 } };
+  let out = await k.parse("t.name ~ 'Sam'");
+  expect(out.apply(env)).toBeTruthy();
+  out = await k.parse("t.name ~ 'a'");
+  expect(out.apply(env)).toBeTruthy();
+  out = await k.parse("t.name ~ 'sa'");
+  expect(out.apply(env)).toBeTruthy();
+  out = await k.parse("t.name ~ 'am'");
+});
+
+test("like operator returns false", async () => {
+  let env = { t: { name: "Sam", age: 2, id: 5 } };
+  let out = await k.parse("t.name ~ 1");
+  // At the moment this is the expected behaviour, whether that is
+  // 'Correct' or not, is up for debate.
+  expect(out.apply(env)).toBeFalsy();
+});

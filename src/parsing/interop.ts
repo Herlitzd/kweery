@@ -1,6 +1,10 @@
 import { CstNode, CstElement, IToken } from "chevrotain";
 import { Base, Const, Prop } from "../forms/forms";
-import { LessThanOperator, EqualOperator, GreaterThanOperator, NotEqualOperator, LessThanOrEqualOperator, GreaterThanOrEqualOperator } from "../forms/comparators";
+import {
+  LessThanOperator, EqualOperator,
+  GreaterThanOperator, NotEqualOperator,
+  LessThanOrEqualOperator, GreaterThanOrEqualOperator, ContainsOperator
+} from "../forms/comparators";
 import { AndOperator, OrOperator } from "../forms/logical";
 
 
@@ -64,6 +68,8 @@ function getComparator(comparator: CstElement, left: Base, right: Base): Base {
     return new LessThanOrEqualOperator(left, right);
   } else if (comparator.children.GreaterThanOrEqual) {
     return new GreaterThanOrEqualOperator(left, right);
+  } else if (comparator.children.Contains) {
+    return new ContainsOperator(left, right);
   }
 }
 function getProp(fields: CstElement[]) {

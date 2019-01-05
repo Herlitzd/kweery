@@ -30,3 +30,12 @@ export class GreaterThanOperator extends ComparatorOperator {
     return (l: Comparable, r: Comparable) => l > r;
   }
 }
+
+export class ContainsOperator extends ComparatorOperator {
+  get rawOperator(): (l: Comparable, r: Comparable) => Boolean {
+    return (l: Comparable, r: Comparable) => {
+      if (typeof r != 'string' || typeof l != 'string') return false;
+      return l.toLowerCase().includes(r.toLowerCase());
+    }
+  }
+}

@@ -51,6 +51,7 @@ export class KweeryParser extends Parser {
         { ALT: () => $.CONSUME(tokens.NotEqual) },
         { ALT: () => $.CONSUME(tokens.LessThan) },
         { ALT: () => $.CONSUME(tokens.LessThanOrEqual) },
+        { ALT: () => $.CONSUME(tokens.Contains) },
       ])
     })
     $.RULE("accessorExpression", () => {
