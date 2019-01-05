@@ -11,7 +11,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "postinstall": "npm run build"
+    "prepare": "npm run build"
   },
   "author": "Devon Herlitz",
   "license": "MIT",
