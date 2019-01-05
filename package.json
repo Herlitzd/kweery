@@ -10,7 +10,8 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "install": "npm run build"
   },
   "author": "Devon Herlitz",
   "license": "MIT",
