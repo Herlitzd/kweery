@@ -28,9 +28,10 @@ Note that strings must be denoted with single quotes. And that all numbers are t
 
 At the moment the following Binary Operators are supported.
 
-|||||||
-|:--:|:--:|:--:|:--:|:--:|:--:|
-| < | > | >= | <= | = | != |
+||||||||
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| < | > | >= | <= | = | != | ~ |
+||||||| Contains |
 
 For setwise operations, `AND` and `OR` are supported. As shown above, keywords/operators are not case sensitive, identifiers used to field access are.
 
