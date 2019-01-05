@@ -1,6 +1,6 @@
 {
   "name": "kweery",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Framework agnostic query language.",
   "main": "dist/kweery.js",
   "types": "dist/kweery.d.ts",
