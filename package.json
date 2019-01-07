@@ -1,17 +1,30 @@
 {
   "name": "kweery",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Framework agnostic query language.",
+  "files": [
+    "/dist"
+  ],
   "main": "dist/kweery.js",
   "types": "dist/kweery.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Herlitzd/kweery.git"
   },
+  "keywords": [
+    "query-language",
+    "query",
+    "language",
+    "typescript",
+    "filtering",
+    "filter"
+  ],
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test",
+    "preversion": "npm test"
   },
   "author": "Devon Herlitz",
   "license": "MIT",
