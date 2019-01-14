@@ -47,7 +47,7 @@ export function translateToAst(tree: CstElement | CstElement[]): Base {
         return new Const(parseFloat((<IToken>tree.children.Number[0]).image));
       } else {
         // Remove the single quotes
-        return new Const((<IToken>tree.children.QuotedIdentifier[0]).image.replace(/\'/g, ''));
+        return new Const((<IToken>tree.children.QuotedIdentifier[0]).image.replace(/\"/g, ''));
       }
     default:
       console.error(tree);
