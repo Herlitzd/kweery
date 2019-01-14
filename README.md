@@ -13,20 +13,20 @@ A framework agnostic query language for the web.
 The language follows the basic form of what you would expect in a SQL where clause:
 
 ```sql
-firstName = 'Sam' or age >= 15
+firstName = "Sam" or age >= 15
 ```
 
 It should be noted that nested identifiers can be used as well. Such as:
 ```sql
-t.firstName = 'Sam' or t.age >= 15.5 and t.preferences.favoriteColor = 'Red'
+t.firstName = "Sam" or t.age >= 15.5 and t.preferences.favoriteColor = "Red"
 ```
 
 And that parenthesis can be used in order to express precedence:
 ```sql
-(t.firstName = 'Sam' or t.age >= 15.5) and t.preferences.favoriteColor = 'Red'
+(t.firstName = "Sam" or t.age >= 15.5) and t.preferences.favoriteColor = "Red"
 ```
 
-Note that strings must be denoted with single quotes. And that all numbers are treated as floats, whether they are integers or not.
+Note that strings must be denoted with double quotes. And that all numbers are treated as floats, whether they are integers or not.
 
 At the moment the following Binary Operators are supported.
 
