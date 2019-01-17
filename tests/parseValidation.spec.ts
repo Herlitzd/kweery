@@ -105,3 +105,19 @@ test("like operator returns false", async () => {
   // 'Correct' or not, is up for debate.
   expect(out.apply(env)).toBeFalsy();
 });
+
+test("quoted identifiers should now allow spaces", async () => {
+  let env = { t: { name: "Sam is friendly" } };
+  let out = await k.parse('t.name = "Sam is friendly"');
+  expect(out.apply(env)).toBeTruthy();
+});
+test("quoted identifiers should now allow apostrophes", async () => {
+  let env = { t: { name: "Don't look over there" } };
+  let out = await k.parse("t.name = \"Don't look over there\"");
+  expect(out.apply(env)).toBeTruthy();
+});
+test("quoted identifiers should now support escaping", async () => {
+  let env = { t: { name: "Hi there, don't do 'that'" } };
+  let out = await k.parse('t.name = "Hi there, don\'t do \'that\'"');
+  expect(out.apply(env)).toBeTruthy();
+});
