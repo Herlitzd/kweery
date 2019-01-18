@@ -39,7 +39,7 @@ For setwise operations, `AND` and `OR` are supported. As shown above, keywords/o
 
 ## Using this Library
 Kweery provides a few ways of being used depending on your needs.
-First, if you can operate on a finite set of elements then you can use the `exec<T>` instance method from a Kweery object in order to filter an `T[]`.
+First, if you can operate on a finite set of elements then you can use the `exec<T>` static method from a Kweery object in order to filter an `T[]`.
 
 ```ts
 import { Kweery } from "kweery";
@@ -48,7 +48,7 @@ let people: Person[] = [...];
 let matchedSet = await Kweery.exec("age > 21 and age < 55", people);
 ```
 
-If you need to apply a predicate to filter of a set that is perhaps not finite, you can use the `getPredicateFor()` instance method. This will return a predicate that can be used to filter items. Of course, it will return `true` for rows that meet the conditions, and `false` for all others.
+If you need to apply a predicate to filter of a set that is perhaps not finite, you can use the `getPredicateFor()` static method. This will return a predicate that can be used to filter items. Of course, it will return `true` for rows that meet the conditions, and `false` for all others.
 
 ```ts
 import { Kweery } from "kweery";
