@@ -19,22 +19,22 @@ const ageLess23AndPieNotAbcOrNameSamAndColorIsRed =
       new EqualOperator(new Prop("color"), new Const("red")))));
 
 test("verify one condition ast", async () => {
-  let ast = await k.parse("age < 23");
+  let ast = await k.parse('age < 23');
   expect(ast).toMatchObject(ageLess23Ast);
 });
 
 test("verify two condition ast", async () => {
-  let ast = await k.parse("age < 23 and pie != 'abc'");
+  let ast = await k.parse('age < 23 and pie != "abc"');
   expect(ast).toMatchObject(ageLess23AndPieNotAbc);
 });
 
 test("verify three condition ast", async () => {
-  let ast = await k.parse("age < 23 and pie != 'abc' or name = 'Sam'");
+  let ast = await k.parse('age < 23 and pie != "abc" or name = "Sam"');
   expect(ast).toMatchObject(ageLess23AndPieNotAbcOrNameSam);
 });
 
 test("verify four condition ast", async () => {
-  let ast = await k.parse("age < 23 and pie != 'abc' or name = 'Sam' and color = 'red'");
+  let ast = await k.parse('age < 23 and pie != "abc" or name = "Sam" and color = "red"');
   expect(ast).toMatchObject(ageLess23AndPieNotAbcOrNameSamAndColorIsRed);
 });
 
@@ -51,11 +51,11 @@ const parenPrecedence = new AndOperator(
   new EqualOperator(new Prop('age'), new Const(2)))
 
 test("verify parens work for precedence", async () => {
-  let ast = await k.parse("id = 1 or name = 'Sam' and age = 2");
+  let ast = await k.parse('id = 1 or name = "Sam" and age = 2');
   expect(ast).toMatchObject(normalPrecedence);
-  ast = await k.parse("id = 1 or (name = 'Sam' and age = 2)");
+  ast = await k.parse('id = 1 or (name = "Sam" and age = 2)');
   expect(ast).toMatchObject(normalPrecedence);
-  ast = await k.parse("(id = 1 or name = 'Sam') and age = 2");
+  ast = await k.parse('(id = 1 or name = "Sam") and age = 2');
   expect(ast).toMatchObject(parenPrecedence);
 });
 

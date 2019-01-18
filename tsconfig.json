@@ -4,6 +4,7 @@
     "outDir": "./dist",
     "module": "es6",
     "declaration": true,
+    "esModuleInterop": true,
     "lib": [
       "es2017",
       "dom"

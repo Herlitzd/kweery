@@ -14,7 +14,7 @@ export class KweeryLexer {
       pattern: /\s+/,
       group: Lexer.SKIPPED
     }),
-    QuotedIdentifier: createToken({ name: "QuotedIdentifier", pattern: /\'[a-zA-Z]\w*\'/ }),
+    QuotedIdentifier: createToken({ name: "QuotedIdentifier", pattern: /"(?:[^"\\]*(?:\\.[^"\\]*)*)"/ }),
     And: createToken({
       name: "AND",
       pattern: /AND/i,
