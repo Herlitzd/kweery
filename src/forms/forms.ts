@@ -3,6 +3,7 @@ export type Comparable = Number | String;
 
 export interface Base {
   apply(env: Env): any;
+  odata?: string;
 }
 export class Prop implements Base {
   constructor(public rootSymbol: string, public next?: string | Prop) {
